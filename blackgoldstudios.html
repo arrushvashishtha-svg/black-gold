@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlackGold Studios — Building the Future</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:    #0A0A0A;
+    --deep:     #111111;
+    --card:     #161616;
+    --border:   #222222;
+    --gold:     #C9A84C;
+    --gold2:    #F0C86A;
+    --glow:     rgba(201,168,76,0.18);
+    --white:    #F2F2F2;
+    --muted:    #888888;
+    --mono:     'Space Mono', monospace;
+    --sans:     'Space Grotesk', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--white); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .btn-gold:hover {
+    background: var(--gold2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.35);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* ── GRID LINES ── */
+  .grid-line {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    margin: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 90px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    max-width: 600px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .founder-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .founder-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .founder-initial {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, #7a5c1e 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1.2rem;
+  }
+
+  .founder-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .founder-role {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .founder-bio {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  /* ── PRODUCTS ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: block;
+  }
+
+  .product-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--glow);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .product-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+
+  .product-card:hover::after { opacity: 1; }
+
+  .product-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .product-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 2px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .product-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .product-desc {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .product-link {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+
+  .product-link::after { content: '→'; }
+
+  /* ── IN PROGRESS ── */
+  .wip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .wip-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .wip-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+  }
+
+  .wip-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--white);
+  }
+
+  .wip-desc {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 1.2rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 2px;
+    animation: pulse-bar 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-bar {
+    from { opacity: 0.6; }
+    to   { opacity: 1; }
+  }
+
+  /* ── MISSION ── */
+  .mission-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mission-block::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .mission-quote {
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .mission-quote .highlight { color: var(--gold); }
+
+  .mission-attr {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .footer-links {
+    display: flex; gap: 1.5rem; list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 12px 0;
+  }
+
+  .ticker-track {
+    display: flex; gap: 3rem;
+    animation: ticker 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .ticker-item {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .ticker-item .dot {
+    color: var(--gold);
+    margin-right: 0.5rem;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">BLACK<span>GOLD</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#wip">In Progress</a></li>
+    <li><a href="#mission">Mission</a></li>
+  </ul>
+</nav>
+
+<!-- TICKER -->
+<div style="margin-top:65px;" class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="dot">◆</span> AI Systems</span>
+    <span class="ticker-item"><span class="dot">◆</span> Nova Language</span>
+    <span class="ticker-item"><span class="dot">◆</span> Forge Engine</span>
+    <span class="ticker-item"><span class="dot">◆</span> M3D.js Graphics</span>
+    <span class="ticker-item"><span class="dot">◆</span> Vervo IDE</span>
+    <span class="ticker-item"><span class="dot">◆</span> X.M Spreadsheets</span>
+    <span class="ticker-item"><span class="dot">◆</span> Jarvis AI</span>
+    <span class="ticker-item"><span class="dot">◆</span> WeeSearch Engine</span>
+    <span class="ticker-item"><span class="dot">◆</span> AI Systems</span>
+    <span class="ticker-item"><span class="dot">◆</span> Nova Language</span>
+    <span class="ticker-item"><span class="dot">◆</span> Forge Engine</span>
+    <span class="ticker-item"><span class="dot">◆</span> M3D.js Graphics</span>
+    <span class="ticker-item"><span class="dot">◆</span> Vervo IDE</span>
+    <span class="ticker-item"><span class="dot">◆</span> X.M Spreadsheets</span>
+    <span class="ticker-item"><span class="dot">◆</span> Jarvis AI</span>
+    <span class="ticker-item"><span class="dot">◆</span> WeeSearch Engine</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">BlackGold Studios — Est. by Arrush Vashistha</p>
+  <h1 class="hero-title">
+    We Don't Use<br>the Future.<br><span class="gold">We Build It.</span>
+  </h1>
+  <p class="hero-sub">
+    AI, engines, languages, and tools — built from scratch, owned entirely. BlackGold Studios is the studio where every product starts with zero and ends with something the world has never seen.
+  </p>
+  <div class="hero-cta">
+    <a href="#products" class="btn btn-gold">Explore Our Work</a>
+    <a href="#about" class="btn btn-outline">About Us</a>
+  </div>
+</div>
+
+<div class="grid-line"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">A studio that builds what doesn't exist yet</h2>
+      <p class="section-desc">
+        BlackGold Studios was founded with one belief: the best tools are the ones you make yourself. We're not a reseller or an integrator — we engineer our own AI, our own development environments, our own game engines, and our own languages. Every product in our catalog is ours, end to end.
+      </p>
+      <p class="section-desc" style="margin-bottom:0;">
+        From conversational AI to 3D rendering libraries, from search engines to next-generation spreadsheets — if it doesn't exist the way we need it, we build it.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="founder-card">
+        <div class="founder-initial">AV</div>
+        <div class="founder-name">Arrush Vashistha</div>
+        <div class="founder-role">Founder & Creator</div>
+        <p class="founder-bio">
+          Arrush Vashistha is the mind behind BlackGold Studios. A builder at heart, he started the studio to prove that every piece of critical technology — AI, IDEs, rendering engines, spreadsheet software — can be designed and owned outright. Every product at BlackGold carries his fingerprint: ambitious, independent, and made from the ground up.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="grid-line"></div>
+
+<!-- LIVE PRODUCTS -->
+<section id="products">
+  <p class="section-label">Live Products</p>
+  <h2 class="section-title">What we've shipped</h2>
+  <p class="section-desc">These are live today. Click to visit any of them.</p>
+
+  <div class="products-grid">
+
+    <a href="https://jarvishubai.netlify.app/" target="_blank" class="product-card reveal">
+      <div class="product-icon">🤖</div>
+      <span class="product-tag">Artificial Intelligence</span>
+      <div class="product-name">Jarvis AI</div>
+      <p class="product-desc">Our own AI — built in-house, not a wrapper. Jarvis is the intelligence layer at the core of the BlackGold ecosystem, designed to think, assist, and evolve.</p>
+      <div class="product-link">Visit Jarvis AI</div>
+    </a>
+
+    <a href="https://weesearch.netlify.app/" target="_blank" class="product-card reveal">
+      <div class="product-icon">🔍</div>
+      <span class="product-tag">Search Engine</span>
+      <div class="product-name">WeeSearch</div>
+      <p class="product-desc">Our own search engine. Not another Google clone — WeeSearch is a BlackGold-built web search experience built for speed, simplicity, and independence.</p>
+      <div class="product-link">Visit WeeSearch</div>
+    </a>
+
+    <a href="https://neon-strike-v10.netlify.app/" target="_blank" class="product-card reveal">
+      <div class="product-icon">🎮</div>
+      <span class="product-tag">Game</span>
+      <div class="product-name">Neon Strike</div>
+      <p class="product-desc">A high-intensity gun game built by BlackGold Studios. Fast, neon-lit, and made entirely in-house — proof that we build for fun just as hard as we build for function.</p>
+      <div class="product-link">Play Neon Strike</div>
+    </a>
+
+  </div>
+</section>
+
+<div class="grid-line"></div>
+
+<!-- MISSION QUOTE -->
+<section id="mission" style="padding: 70px 5%;">
+  <div class="mission-block reveal">
+    <p class="mission-quote">
+      "We're not here to use other people's tools. We're here to <span class="highlight">build the tools other people will use.</span>"
+    </p>
+    <p class="mission-attr">— BlackGold Studios · Founded by Arrush Vashistha</p>
+  </div>
+</section>
+
+<div class="grid-line"></div>
+
+<!-- IN PROGRESS -->
+<section id="wip">
+  <p class="section-label">Under Construction</p>
+  <h2 class="section-title">What's coming next</h2>
+  <p class="section-desc">
+    These are the tools we're building right now. Each one is a full replacement for something the world thinks only big companies can make.
+  </p>
+
+  <div class="wip-grid">
+
+    <div class="wip-card reveal">
+      <span class="wip-badge">In Progress</span>
+      <div class="wip-name">Nova</div>
+      <p class="wip-desc">Our own programming language. Nova is designed for speed, clarity, and native integration with the BlackGold ecosystem.</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+    </div>
+
+    <div class="wip-card reveal">
+      <span class="wip-badge">In Progress</span>
+      <div class="wip-name">Forge</div>
+      <p class="wip-desc">A game and application engine that does everything out of the box — rendering, physics, scripting, deployment — built for the next era of development.</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+    </div>
+
+    <div class="wip-card reveal">
+      <span class="wip-badge">In Progress</span>
+      <div class="wip-name">M3D.js</div>
+      <p class="wip-desc">Our own answer to Three.js. A 3D graphics library built from scratch — lighter, faster, and fully under our control.</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+    </div>
+
+    <div class="wip-card reveal">
+      <span class="wip-badge">In Progress</span>
+      <div class="wip-name">Vervo</div>
+      <p class="wip-desc">A code editor built by BlackGold — think VS Code reimagined with our own philosophy: minimal, fast, and AI-native from day one.</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
+    </div>
+
+    <div class="wip-card reveal">
+      <span class="wip-badge">In Progress</span>
+      <div class="wip-name">X.M</div>
+      <p class="wip-desc">Excel, but way better. X.M is a next-generation spreadsheet tool with smarter formulas, native AI, and a UI designed for how people actually work with data.</p>
+      <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="grid-line"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BLACKGOLD STUDIOS</div>
+  <ul class="footer-links">
+    <li><a href="https://jarvishubai.netlify.app/" target="_blank">Jarvis AI</a></li>
+    <li><a href="https://weesearch.netlify.app/" target="_blank">WeeSearch</a></li>
+    <li><a href="https://neon-strike-v10.netlify.app/" target="_blank">Neon Strike</a></li>
+  </ul>
+  <div class="footer-copy">© 2024 BlackGold Studios · Founded by Arrush Vashistha</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger reveal children in grids
+  document.querySelectorAll('.products-grid .reveal, .wip-grid .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
